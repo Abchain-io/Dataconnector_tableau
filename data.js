@@ -83,8 +83,8 @@
 		];
 
         var tableSchema = {
-            id: "Etherscan",
-            alias: "Etherscan contract information",
+            id: "ETHERSCAN",
+            alias: "ETHERSCAN Data",
             columns: cols
         };
 
@@ -93,9 +93,15 @@
 
     // Download the data
     myConnector.getData = function(table, doneCallback) {
-		    $.getJSON("https://api.etherscan.io/api?module=account&action=tokentx&address=0x4c5de8f603125ca134b24daea8eafa163ca9f983&startblock=0&endblock=999999999&sort=asc&apikey=P7QMVKX49MUZV3I99WBPVNMBIV4B8GBX537", function(resp) {
+		var dateObj = JSON.parse(tableau.connectionData),
+		
+		dateString = dateObj.startDate ,
+            apiCall = "https://api.etherscan.io/api?module=account&action=tokentx&address=" + dateString + "&startblock=0&endblock=999999999&sort=asc&apikey=P7QMVKX49MUZV3I99WBPVNMBIV4B8GBX537";
+
+      $.getJSON(apiCall, function(resp) {
             var feat = resp.result,
                 tableData = [];
+
 
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
@@ -132,7 +138,13 @@
     // Create event listeners for when the user submits the form
     $(document).ready(function() {
         $("#submitButton").click(function() {
-            tableau.connectionName = "Etherscan Contact Feed"; // This will be the data source name in Tableau
+			var dateObj = {
+               startDate: $('#start-date-one').val(),
+                
+            };
+			
+			tableau.connectionData = JSON.stringify(dateObj);
+            tableau.connectionName = "ETHERSCAN Scan Data Feed"; // This will be the data source name in Tableau
             tableau.submit(); // This sends the connector object to Tableau
         });
     });
