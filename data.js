@@ -144,7 +144,7 @@
             };
 			
 			tableau.connectionData = JSON.stringify(dateObj);
-            tableau.connectionName = "ETHERSCAN Scan Data Feed"; // This will be the data source name in Tableau
+            tableau.connectionName = "ETHERSCAN Scan Data  Feed"; // This will be the data source name in Tableau
             tableau.submit(); // This sends the connector object to Tableau
         });
     });
