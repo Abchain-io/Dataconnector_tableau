@@ -109,7 +109,7 @@
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
-			"stakingContract":dateObj.startDate,
+			"stakingContract": dateObj.startDate,
                     "blockNumber": feat[i].blockNumber,
                     "timeStamp": feat[i].timeStamp,
 					"hash": feat[i].hash,
